@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/animuradyan/Library/**)",
+      "Read(//usr/local/lib/**)",
+      "Bash(mdfind \"kMDItemFSName == 'node' && kMDItemContentType == 'public.unix-executable'\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
