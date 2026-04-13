@@ -530,15 +530,17 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
             <div className="absolute inset-0 bg-brand/10 opacity-0 group-hover/card:opacity-100 transition-opacity" />
           </div>
           <div className="space-y-2 flex-1">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: '80%' }}
-              className="h-2.5 bg-brand rounded-full" 
+              viewport={{ once: true }}
+              className="h-2.5 bg-brand rounded-full"
             />
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: '50%' }}
-              className="h-1.5 bg-brand/20 rounded-full" 
+              viewport={{ once: true }}
+              className="h-1.5 bg-brand/20 rounded-full"
             />
           </div>
           <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover/card:rotate-12 transition-transform duration-500">
@@ -583,10 +585,11 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
         </div>
         <div className="grid grid-cols-7 gap-2.5">
           {Array.from({ length: 21 }).map((_, i) => (
-            <motion.div 
-              key={i} 
+            <motion.div
+              key={i}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.02 }}
               className={`aspect-square rounded-xl border transition-all duration-500 ${
                 i >= 8 && i <= 12 
@@ -651,17 +654,19 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
       <div className="relative w-full aspect-[16/10] bg-white border border-line rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] p-6 flex flex-col group/card">
         <div className="absolute inset-0 opacity-40 group-hover/card:opacity-60 transition-opacity duration-700">
           <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-            <motion.path 
+            <motion.path
               initial={{ pathLength: 0 }}
               whileInView={{ pathLength: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 2 }}
-              d="M10,50 Q30,20 50,50 T90,50" stroke="currentColor" className="text-line" strokeWidth="0.5" 
+              d="M10,50 Q30,20 50,50 T90,50" stroke="currentColor" className="text-line" strokeWidth="0.5"
             />
-            <motion.path 
+            <motion.path
               initial={{ pathLength: 0 }}
               whileInView={{ pathLength: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 2, delay: 0.5 }}
-              d="M20,30 Q40,60 60,30 T80,60" stroke="currentColor" className="text-line" strokeWidth="0.5" 
+              d="M20,30 Q40,60 60,30 T80,60" stroke="currentColor" className="text-line" strokeWidth="0.5"
             />
           </svg>
         </div>
@@ -670,7 +675,8 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
             <div className="w-28 h-2.5 bg-brand/10 rounded-full" />
             <motion.div 
               animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: 'transform' }}
               className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center shadow-[0_10px_20px_rgba(183,235,70,0.2)] border border-accent/20"
             >
               <MapPin className="w-6 h-6 text-accent" />
@@ -711,11 +717,12 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
           <span className="text-2xl font-black text-brand tracking-tighter tabular-nums">09:41<span className="text-accent animate-pulse">:</span>00</span>
         </div>
         <div className="h-3 bg-gray-50 rounded-full overflow-hidden p-0.5 border border-line/50">
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: '75%' }}
+            viewport={{ once: true }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="h-full bg-gradient-to-r from-brand to-accent rounded-full shadow-[0_0_10px_rgba(183,235,70,0.3)]" 
+            className="h-full bg-gradient-to-r from-brand to-accent rounded-full shadow-[0_0_10px_rgba(183,235,70,0.3)]"
           />
         </div>
         <div className="flex justify-between items-center pt-2">
@@ -995,13 +1002,11 @@ const Ecosystem = ({ t }: { t: any }) => (
       <div className="relative flex justify-center py-8 md:py-20">
         <div className="w-full max-w-5xl aspect-[4/3] md:aspect-video relative flex items-center justify-center border border-white/5 overflow-hidden group/eco">
           {/* Central Core */}
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(114,191,68,0.2)", "0 0 60px rgba(114,191,68,0.4)", "0 0 20px rgba(114,191,68,0.2)"]
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
+          <motion.div
+            animate={{ scale: [1, 1.04, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="w-40 h-40 md:w-64 md:h-64 rounded-full border border-white/20 flex items-center justify-center relative z-10 backdrop-blur-2xl bg-white/10 group-hover/eco:border-accent transition-colors duration-700"
+            style={{ willChange: 'transform' }}
           >
             <div className="text-center">
               <div className="w-10 h-10 md:w-16 md:h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 md:mb-6 shadow-[0_0_30px_rgba(114,191,68,0.4)] group-hover/eco:scale-110 transition-transform duration-700">
@@ -1037,13 +1042,14 @@ const Ecosystem = ({ t }: { t: any }) => (
 
           {/* SVG Connection Lines */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" viewBox="0 0 1000 600">
-            <motion.path 
-              d="M500 300 L150 100 M500 300 L850 100 M500 300 L150 500 M500 300 L850 500" 
-              stroke="url(#line-gradient)" 
-              strokeWidth="2" 
+            <motion.path
+              d="M500 300 L150 100 M500 300 L850 100 M500 300 L150 500 M500 300 L850 500"
+              stroke="url(#line-gradient)"
+              strokeWidth="2"
               fill="none"
               initial={{ pathLength: 0 }}
               whileInView={{ pathLength: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 2, ease: "easeInOut" }}
             />
             <defs>
