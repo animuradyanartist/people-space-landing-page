@@ -4,7 +4,7 @@
  */
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { AdminProvider, useAdmin } from "./AdminContext";
 import { AdminBar } from "./AdminBar";
 import { translations } from "./translations";
@@ -97,9 +97,6 @@ const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setL
             <option value="am">AM</option>
           </select>
         </div>
-        <button className="hidden sm:block text-xs font-bold uppercase tracking-widest text-brand hover:text-accent transition-colors">
-          {t.nav.login}
-        </button>
         <button
           onClick={onStartTrial}
           className="group relative px-8 py-3 bg-brand text-white overflow-hidden rounded-full transition-all duration-500 hover:shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
@@ -164,15 +161,9 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
                   >
                     <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                     <span className="relative z-10 flex items-center group-hover:text-brand transition-colors duration-500">
-                      {t.hero.exploreBtn}
+                      {t.hero.bookDemoBtn}
                       <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                     </span>
-                  </button>
-                  <button
-                    onClick={onStartTrial}
-                    className="btn-secondary group hover:border-brand transition-all duration-500"
-                  >
-                    <span className="group-hover:tracking-widest transition-all duration-500">{t.hero.bookDemoBtn}</span>
                   </button>
                 </div>
               </div>
@@ -1114,10 +1105,84 @@ const FinalCTA = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => 
   </section>
 );
 
+const ALL_COUNTRIES = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria",
+  "Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan",
+  "Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia",
+  "Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)",
+  "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador",
+  "Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France",
+  "Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau",
+  "Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland",
+  "Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait",
+  "Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg",
+  "Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico",
+  "Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru",
+  "Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman",
+  "Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
+  "Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe",
+  "Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia",
+  "South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria",
+  "Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey",
+  "Turkmenistan","Tuvalu","UAE","Uganda","Ukraine","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
+  "Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+];
+
+const CountrySelect = ({ value, onChange, placeholder, inputClass }: {
+  value: string; onChange: (v: string) => void; placeholder: string; inputClass: string;
+}) => {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const filtered = ALL_COUNTRIES.filter(c => c.toLowerCase().includes(search.toLowerCase()));
+
+  useEffect(() => {
+    if (!open) setSearch('');
+  }, [open]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <div className={`${inputClass} cursor-pointer flex items-center justify-between`}
+        onClick={() => setOpen(v => !v)}>
+        <span className={value ? 'text-brand' : 'text-brand/30'}>{value || placeholder}</span>
+        <ChevronRight className={`w-4 h-4 text-brand/30 transition-transform ${open ? 'rotate-90' : ''}`} />
+      </div>
+      {open && (
+        <div className="absolute z-50 w-full mt-1 bg-paper border border-line rounded-xl shadow-xl overflow-hidden">
+          <div className="p-2 border-b border-line">
+            <input autoFocus type="text" className="w-full bg-brand/5 rounded-lg px-3 py-2 text-sm text-brand placeholder:text-brand/30 focus:outline-none"
+              placeholder="Search country..." value={search} onChange={e => setSearch(e.target.value)} />
+          </div>
+          <div className="max-h-52 overflow-y-auto">
+            {filtered.length === 0
+              ? <div className="px-4 py-3 text-sm text-brand/30">No results</div>
+              : filtered.map(c => (
+                <div key={c} className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-accent/10 transition-colors ${value === c ? 'bg-accent/10 font-semibold text-accent' : 'text-brand'}`}
+                  onMouseDown={() => { onChange(c); setOpen(false); }}>
+                  {c}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const ContactModal = ({ isOpen, onClose, lang }: { isOpen: boolean, onClose: () => void, lang: string }) => {
   const t = (translations as any)[lang].contact;
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [formData, setFormData] = useState({ companyName: '', email: '', companySize: '', phone: '', country: '' });
 
   if (!isOpen) return null;
 
@@ -1160,9 +1225,9 @@ const ContactModal = ({ isOpen, onClose, lang }: { isOpen: boolean, onClose: () 
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className={labelClass}><span className="flex items-center gap-1.5"><User className="w-3 h-3" />{t.name}</span></label>
-                  <input type="text" className={inputClass} placeholder={t.namePlaceholder}
-                    value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                  <label className={labelClass}><span className="flex items-center gap-1.5"><Building2 className="w-3 h-3" />{t.companyName}</span></label>
+                  <input type="text" required className={inputClass} placeholder={t.companyNamePlaceholder}
+                    value={formData.companyName} onChange={e => setFormData({ ...formData, companyName: e.target.value })} />
                 </div>
 
                 <div>
@@ -1172,9 +1237,30 @@ const ContactModal = ({ isOpen, onClose, lang }: { isOpen: boolean, onClose: () 
                 </div>
 
                 <div>
+                  <label className={labelClass}><span className="flex items-center gap-1.5"><Users className="w-3 h-3" />{t.companySize}</span></label>
+                  <select required className={inputClass}
+                    value={formData.companySize} onChange={e => setFormData({ ...formData, companySize: e.target.value })}>
+                    <option value="" disabled>{t.companySizePlaceholder}</option>
+                    <option value="1-10">1–10</option>
+                    <option value="11-50">11–50</option>
+                    <option value="51-200">51–200</option>
+                    <option value="201-500">201–500</option>
+                    <option value="500+">500+</option>
+                  </select>
+                </div>
+
+                <div>
                   <label className={labelClass}><span className="flex items-center gap-1.5"><AlertCircle className="w-3 h-3" />{t.phone}</span></label>
                   <input type="tel" required className={inputClass} placeholder={t.phonePlaceholder}
                     value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                </div>
+
+                <div>
+                  <label className={labelClass}><span className="flex items-center gap-1.5"><Globe className="w-3 h-3" />{t.country}</span></label>
+                  <CountrySelect value={formData.country} onChange={v => setFormData({ ...formData, country: v })}
+                    placeholder={t.countryPlaceholder} inputClass={inputClass} />
+                  {/* hidden input so form required validation works */}
+                  <input type="text" required className="sr-only" value={formData.country} onChange={() => {}} tabIndex={-1} />
                 </div>
 
                 <button type="submit"
