@@ -185,7 +185,7 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
                 </div>
               </div>
               
-              <motion.div style={{ y: y1 }} className="md:col-span-5 flex flex-col gap-4">
+              <motion.div style={{ y: y1 }} className="hidden md:flex md:col-span-5 flex-col gap-4">
                 {/* Product preview card */}
                 <div className="bg-white border border-line rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
                   <div className="bg-brand/5 border-b border-line px-5 py-3 flex items-center gap-2">
@@ -992,8 +992,8 @@ const Ecosystem = ({ t }: { t: any }) => (
         </div>
       </div>
 
-      <div className="relative flex justify-center py-20">
-        <div className="w-full max-w-5xl aspect-square md:aspect-video relative flex items-center justify-center border border-white/5 overflow-hidden group/eco">
+      <div className="relative flex justify-center py-8 md:py-20">
+        <div className="w-full max-w-5xl aspect-[4/3] md:aspect-video relative flex items-center justify-center border border-white/5 overflow-hidden group/eco">
           {/* Central Core */}
           <motion.div 
             animate={{ 
@@ -1001,32 +1001,32 @@ const Ecosystem = ({ t }: { t: any }) => (
               boxShadow: ["0 0 20px rgba(114,191,68,0.2)", "0 0 60px rgba(114,191,68,0.4)", "0 0 20px rgba(114,191,68,0.2)"]
             }}
             transition={{ duration: 4, repeat: Infinity }}
-            className="w-64 h-64 rounded-full border border-white/20 flex items-center justify-center relative z-10 backdrop-blur-2xl bg-white/10 group-hover/eco:border-accent transition-colors duration-700"
+            className="w-40 h-40 md:w-64 md:h-64 rounded-full border border-white/20 flex items-center justify-center relative z-10 backdrop-blur-2xl bg-white/10 group-hover/eco:border-accent transition-colors duration-700"
           >
             <div className="text-center">
-              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(114,191,68,0.4)] group-hover/eco:scale-110 transition-transform duration-700">
-                <Layers className="w-8 h-8 text-brand" />
+              <div className="w-10 h-10 md:w-16 md:h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 md:mb-6 shadow-[0_0_30px_rgba(114,191,68,0.4)] group-hover/eco:scale-110 transition-transform duration-700">
+                <Layers className="w-5 h-5 md:w-8 md:h-8 text-brand" />
               </div>
-              <div className="text-xl font-bold tracking-tighter uppercase">{t.ecosystem.coreTitle}</div>
-              <div className="text-[9px] text-accent font-bold uppercase tracking-widest mt-2">{t.ecosystem.coreSubtitle}</div>
+              <div className="text-sm md:text-xl font-bold tracking-tighter uppercase">{t.ecosystem.coreTitle}</div>
+              <div className="text-[8px] md:text-[9px] text-accent font-bold uppercase tracking-widest mt-1 md:mt-2">{t.ecosystem.coreSubtitle}</div>
             </div>
           </motion.div>
 
-          {/* Orbiting Modules */}
+          {/* Orbiting Modules — desktop only */}
           {[
             { label: t.ecosystem.module1, icon: <Clock className="w-4 h-4" />, pos: "top-10 left-10", color: "hover:bg-accent hover:text-brand" },
             { label: t.ecosystem.module2, icon: <Calendar className="w-4 h-4" />, pos: "top-10 right-10", color: "hover:bg-accent hover:text-brand" },
             { label: t.ecosystem.module3, icon: <Users className="w-4 h-4" />, pos: "bottom-10 left-10", color: "hover:bg-accent hover:text-brand" },
             { label: t.ecosystem.module4, icon: <FileText className="w-4 h-4" />, pos: "bottom-10 right-10", color: "hover:bg-accent hover:text-brand" }
           ].map((m, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 + i * 0.1 }}
               whileHover={{ scale: 1.1, y: -5 }}
-              className={`absolute ${m.pos} flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full group transition-all cursor-pointer z-20 ${m.color}`}
+              className={`absolute ${m.pos} hidden md:flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full group transition-all cursor-pointer z-20 ${m.color}`}
             >
               <div className="text-accent group-hover:text-inherit transition-colors duration-500">
                 {m.icon}
@@ -1055,6 +1055,21 @@ const Ecosystem = ({ t }: { t: any }) => (
             </defs>
           </svg>
         </div>
+      </div>
+
+      {/* Mobile modules grid — shown only on small screens */}
+      <div className="md:hidden grid grid-cols-2 gap-3 mt-6 px-4">
+        {[
+          { label: t.ecosystem.module1, icon: <Clock className="w-4 h-4" /> },
+          { label: t.ecosystem.module2, icon: <Calendar className="w-4 h-4" /> },
+          { label: t.ecosystem.module3, icon: <Users className="w-4 h-4" /> },
+          { label: t.ecosystem.module4, icon: <FileText className="w-4 h-4" /> }
+        ].map((m, i) => (
+          <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-3 rounded-xl">
+            <div className="text-accent shrink-0">{m.icon}</div>
+            <div className="text-xs font-bold uppercase tracking-widest">{m.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
