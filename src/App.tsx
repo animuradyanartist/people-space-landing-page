@@ -9,23 +9,19 @@ import { AdminProvider, useAdmin } from "./AdminContext";
 import { AdminBar } from "./AdminBar";
 import { translations } from "./translations";
 import Dashboard from "./Dashboard";
-import { 
-  Layout, 
-  Users, 
-  Clock, 
-  MapPin, 
-  Calendar, 
-  ShieldCheck, 
-  FileText, 
-  Settings, 
-  Briefcase, 
-  CheckCircle2, 
-  ArrowRight, 
+import {
+  Users,
+  Clock,
+  MapPin,
+  Calendar,
+  ShieldCheck,
+  FileText,
+  Settings,
+  CheckCircle2,
+  ArrowRight,
   ArrowUpRight,
-  BarChart3, 
-  Layers, 
-  Search,
-  Lock,
+  BarChart3,
+  Layers,
   Globe,
   Zap,
   ChevronRight,
@@ -34,20 +30,25 @@ import {
   Languages,
   Building2,
   Mail,
-  User,
   X,
-  Menu
 } from "lucide-react";
 
 // --- Components ---
 
+const RADIUS_MAP: Record<string, string> = {
+  '2xl': 'rounded-2xl',
+  'full': 'rounded-full',
+  'lg': 'rounded-lg',
+  'none': 'rounded-none',
+};
+
 const Logo = ({ className = "w-12 h-12", iconClassName = "w-7 h-7" }: { className?: string, iconClassName?: string }) => {
   const { branding } = useAdmin();
-  const bg     = branding.logoColor  || '#4CAF50';
-  const radius = branding.logoRadius || '2xl';
+  const bg          = branding.logoColor  || '#4CAF50';
+  const radiusClass = RADIUS_MAP[branding.logoRadius || '2xl'] ?? 'rounded-2xl';
   return (
     <div
-      className={`relative flex items-center justify-center rounded-${radius} shadow-lg ${className}`}
+      className={`relative flex items-center justify-center ${radiusClass} shadow-lg ${className}`}
       style={{ backgroundColor: bg, boxShadow: `0 8px 24px ${bg}33` }}
     >
       {branding.logoImage ? (
@@ -115,7 +116,7 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
   const y2 = useTransform(scrollY, [0, 500], [0, -50]);
 
   return (
-    <section className="relative pt-64 pb-32 px-6 overflow-hidden bg-paper">
+    <section className="relative pt-28 pb-32 px-6 overflow-hidden bg-paper">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[120px] -mr-96 -mt-96 animate-pulse pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[120px] -ml-72 -mb-72 pointer-events-none" />
@@ -143,7 +144,7 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
               <span className="group-hover:text-accent transition-colors">{t.hero.microLabel}</span>
             </div>
             
-            <h1 className="text-[12vw] lg:text-[10rem] font-bold text-brand leading-[0.85] mb-16 tracking-tighter uppercase">
+            <h1 className="text-[10vw] lg:text-[8rem] font-bold text-brand leading-[0.85] mb-8 tracking-tighter uppercase">
               {t.hero.title1} <br />
               <span className="text-accent italic font-serif lowercase tracking-normal hover:text-brand transition-colors duration-700 cursor-default">{t.hero.title2}</span> <br />
               <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.hero.title3}</span>
@@ -151,10 +152,10 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
 
             <div className="grid md:grid-cols-12 gap-12 items-end">
               <div className="md:col-span-7">
-                <p className="text-[28px] text-[#3e4448] leading-[39.5px] font-medium tracking-tight mb-12 max-w-2xl">
+                <p className="text-xl text-[#3e4448] leading-relaxed font-medium tracking-tight mb-8 max-w-xl">
                   {t.hero.description}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   <button
                     onClick={onStartTrial}
                     className="btn-primary group relative overflow-hidden"
@@ -165,26 +166,70 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
                       <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
+                  <div className="flex items-center gap-3">
+                    <div className="flex -space-x-2">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className="w-8 h-8 rounded-full border-2 border-paper bg-white overflow-hidden grayscale shadow-sm">
+                          <img src={`https://picsum.photos/seed/user${i}/100/100`} alt="" referrerPolicy="no-referrer" />
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-brand">{t.hero.trustedBy}</div>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                        <span className="text-[10px] text-accent font-bold uppercase tracking-widest">{t.hero.liveSync}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
-              <motion.div style={{ y: y1 }} className="md:col-span-5 flex flex-col items-end gap-8">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map(i => (
-                    <motion.div 
-                      key={i} 
-                      whileHover={{ y: -10, scale: 1.1, rotate: i % 2 === 0 ? 5 : -5 }}
-                      className="w-14 h-14 rounded-full border-2 border-paper bg-white overflow-hidden grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-accent/20"
-                    >
-                      <img src={`https://picsum.photos/seed/user${i}/100/100`} alt="User" referrerPolicy="no-referrer" />
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="text-right group">
-                  <div className="text-xs font-bold text-brand uppercase tracking-widest mb-1 group-hover:text-accent transition-colors">{t.hero.trustedBy}</div>
-                  <div className="flex items-center justify-end gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                    <div className="text-[10px] text-accent font-bold uppercase tracking-[0.2em]">{t.hero.liveSync}</div>
+              <motion.div style={{ y: y1 }} className="md:col-span-5 flex flex-col gap-4">
+                {/* Product preview card */}
+                <div className="bg-white border border-line rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+                  <div className="bg-brand/5 border-b border-line px-5 py-3 flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-300" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-300" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-300" />
+                    <span className="ml-3 text-[10px] font-bold uppercase tracking-widest text-brand/30">People Space — Dashboard</span>
+                  </div>
+                  <div className="p-5 space-y-3">
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { label: 'Employees', value: '248', color: 'bg-accent/10 text-accent' },
+                        { label: 'On Leave', value: '12', color: 'bg-yellow-50 text-yellow-600' },
+                        { label: 'Requests', value: '34', color: 'bg-blue-50 text-blue-500' },
+                      ].map(stat => (
+                        <div key={stat.label} className={`${stat.color} rounded-xl p-3 text-center`}>
+                          <div className="text-xl font-bold">{stat.value}</div>
+                          <div className="text-[9px] font-bold uppercase tracking-widest opacity-70 mt-0.5">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="bg-brand/3 rounded-xl p-4 space-y-2.5">
+                      {[
+                        { name: 'Anna K.', action: 'Vacation approved', time: '2m ago', dot: 'bg-accent' },
+                        { name: 'Mark T.', action: 'Check-in recorded', time: '8m ago', dot: 'bg-blue-400' },
+                        { name: 'Sara M.', action: 'Trip request submitted', time: '15m ago', dot: 'bg-yellow-400' },
+                      ].map(item => (
+                        <div key={item.name} className="flex items-center gap-3">
+                          <div className={`w-2 h-2 rounded-full ${item.dot} shrink-0`} />
+                          <div className="flex-1 min-w-0">
+                            <span className="text-xs font-bold text-brand">{item.name}</span>
+                            <span className="text-xs text-brand/40 ml-1.5">{item.action}</span>
+                          </div>
+                          <span className="text-[10px] text-brand/30 shrink-0">{item.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between px-1">
+                      <span className="text-[10px] text-brand/30 font-bold uppercase tracking-widest">Attendance today</span>
+                      <span className="text-[10px] font-bold text-accent">94% present</span>
+                    </div>
+                    <div className="h-1.5 bg-brand/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-accent rounded-full" style={{ width: '94%' }} />
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -916,6 +961,7 @@ const Benefits = ({ t }: { t: any }) => (
                   98<span className="text-accent">%</span>
                 </motion.div>
                 <div className="text-accent uppercase tracking-[0.4em] text-[17px] font-bold">{t.benefits.statLabel}</div>
+                <div className="text-white/30 text-[11px] mt-3 font-medium">Based on customer surveys</div>
              </div>
           </div>
         </div>
@@ -1015,7 +1061,7 @@ const Ecosystem = ({ t }: { t: any }) => (
 );
 
 const BusinessValue = ({ t }: { t: any }) => (
-  <section className="section-padding bg-paper" id="business">
+  <section className="section-padding bg-paper" id="business" data-nav="enterprise">
     <div className="container-custom">
       <div className="grid lg:grid-cols-2 gap-32 items-start">
         <div>
@@ -1179,7 +1225,7 @@ const CountrySelect = ({ value, onChange, placeholder, inputClass }: {
   );
 };
 
-const ContactModal = ({ isOpen, onClose, lang }: { isOpen: boolean, onClose: () => void, lang: string }) => {
+const ContactModal = ({ isOpen, onClose, lang, onSuccess }: { isOpen: boolean, onClose: () => void, lang: string, onSuccess?: () => void }) => {
   const t = (translations as any)[lang].contact;
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ companyName: '', email: '', companySize: '', phone: '', country: '' });
@@ -1296,7 +1342,27 @@ const ContactModal = ({ isOpen, onClose, lang }: { isOpen: boolean, onClose: () 
 // Keep RegistrationModal name as alias so existing call sites still compile
 const RegistrationModal = ContactModal;
 
-const Footer = ({ t }: { t: any }) => (
+const FooterCTA = ({ onStartTrial }: { onStartTrial: () => void }) => (
+  <div className="bg-accent px-6 py-10">
+    <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <p className="text-brand font-bold text-lg tracking-tight">Ready to bring structure to your team?</p>
+        <p className="text-brand/60 text-sm mt-1">Join 500+ companies already using People Space.</p>
+      </div>
+      <button
+        onClick={onStartTrial}
+        className="shrink-0 px-8 py-3 bg-brand text-white rounded-full text-sm font-bold hover:bg-brand/90 transition-colors flex items-center gap-2 group"
+      >
+        Book a Demo
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+  </div>
+);
+
+const Footer = ({ t, onStartTrial }: { t: any; onStartTrial: () => void }) => (
+  <>
+  <FooterCTA onStartTrial={onStartTrial} />
   <footer className="bg-paper border-t border-line py-32 px-6 relative overflow-hidden">
     {/* Background Accents */}
     <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
@@ -1340,6 +1406,7 @@ const Footer = ({ t }: { t: any }) => (
       </div>
     </div>
   </footer>
+  </>
 );
 
 const AdminTrigger = () => {
@@ -1388,7 +1455,7 @@ function AppInner() {
         <FinalCTA t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
       </main>
 
-      <Footer t={t} />
+      <Footer t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
 
       <AnimatePresence>
         {isRegistrationOpen && (

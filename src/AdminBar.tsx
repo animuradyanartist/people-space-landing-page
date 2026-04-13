@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import { Settings, X, RotateCcw, Save, ChevronRight, Check, Palette, Upload, RefreshCw } from 'lucide-react';
 import { useAdmin, Branding } from './AdminContext';
 import { translations } from './translations';
@@ -22,7 +22,7 @@ const BrandingEditor = ({
 }) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
