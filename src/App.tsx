@@ -65,11 +65,11 @@ const Logo = ({ className = "w-12 h-12", iconClassName = "w-7 h-7" }: { classNam
 };
 
 const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setLang: (l: string) => void, onStartTrial: () => void }) => (
-  <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-8 pointer-events-none">
+  <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-8 pointer-events-none">
     <div className="container-custom flex items-center justify-between pointer-events-auto">
       <div className="flex items-center gap-4 group cursor-pointer">
         <Logo className="w-12 h-12 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(76,175,80,0.4)] transition-all duration-500" />
-        <span className="text-2xl font-bold tracking-tighter text-brand group-hover:text-[#4CAF50] transition-colors duration-500">People Space</span>
+        <span className="hidden sm:block text-xl md:text-2xl font-bold tracking-tighter text-brand group-hover:text-[#4CAF50] transition-colors duration-500">People Space</span>
       </div>
       
       <div className="hidden md:flex items-center gap-12 bg-white/70 backdrop-blur-xl px-8 py-3 rounded-full border border-line shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
@@ -100,10 +100,10 @@ const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setL
         </div>
         <button
           onClick={onStartTrial}
-          className="group relative px-8 py-3 bg-brand text-white overflow-hidden rounded-full transition-all duration-500 hover:shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
+          className="group relative text-xs px-5 py-2.5 md:px-8 md:py-3 md:text-sm bg-brand text-white overflow-hidden rounded-full transition-all duration-500 hover:shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
         >
           <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          <span className="relative z-10 text-sm font-bold group-hover:text-brand transition-colors duration-500">{t.nav.bookDemo}</span>
+          <span className="relative z-10 font-bold group-hover:text-brand transition-colors duration-500">{t.nav.bookDemo}</span>
         </button>
       </div>
     </div>
@@ -144,7 +144,7 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
               <span className="group-hover:text-accent transition-colors">{t.hero.microLabel}</span>
             </div>
             
-            <h1 className="text-[10vw] lg:text-[8rem] font-bold text-brand leading-[0.85] mb-8 tracking-tighter uppercase">
+            <h1 className="text-[14vw] sm:text-[10vw] lg:text-[8rem] font-bold text-brand leading-[0.85] mb-8 tracking-tighter uppercase">
               {t.hero.title1} <br />
               <span className="text-accent italic font-serif lowercase tracking-normal hover:text-brand transition-colors duration-700 cursor-default">{t.hero.title2}</span> <br />
               <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.hero.title3}</span>
@@ -239,7 +239,7 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
           {/* Value Strip */}
           <motion.div 
             style={{ y: y2 }}
-            className="mt-32 pt-16 border-t border-line grid grid-cols-2 md:grid-cols-4 gap-16"
+            className="mt-12 pt-8 md:mt-32 md:pt-16 border-t border-line grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16"
           >
             {[
               { label: t.hero.value1, desc: t.hero.value1Desc },
@@ -271,15 +271,15 @@ const PlatformOverview = ({ t }: { t: any }) => (
   <section className="section-padding bg-paper relative overflow-hidden" id="platform">
     <div className="grid-line-v left-1/2 opacity-30" />
     <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-2 gap-32 items-start">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div className="max-w-xl">
           <div className="micro-label mb-12">{t.overview.microLabel}</div>
-          <h2 className="text-7xl md:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
             {t.overview.title1} <br />
             <span className="text-brand/20">{t.overview.title2}</span> <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.overview.title3}</span>
           </h2>
-          <p className="text-2xl text-brand/70 leading-tight font-medium tracking-tight">
+          <p className="text-base md:text-2xl text-brand/70 leading-tight font-medium tracking-tight">
             {t.overview.description}
           </p>
         </div>
@@ -329,10 +329,10 @@ const ProblemSection = ({ t }: { t: any }) => (
     <div className="grid-line-v left-3/4 opacity-10" />
     
     <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-12 gap-20 items-end mb-32">
+      <div className="grid lg:grid-cols-12 gap-10 md:gap-20 items-end mb-12 md:mb-32">
         <div className="lg:col-span-8">
           <div className="micro-label text-accent mb-12">{t.problem.microLabel}</div>
-          <h2 className="text-7xl md:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
             {t.problem.title1} <br />
             <span className="text-white/20 hover:text-accent transition-colors duration-700 cursor-default">{t.problem.title2}</span> <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.problem.title3}</span>
@@ -381,18 +381,18 @@ const ModulesSection = ({ t }: { t: any }) => (
     
     <div className="grid-line-h top-0 opacity-30" />
     <div className="container-custom relative z-10">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-32">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-12 md:mb-32">
         <div className="max-w-3xl">
           <div className="micro-label mb-12 flex items-center gap-3">
             <span className="w-8 h-px bg-accent" />
             {t.modules.microLabel}
           </div>
-          <h2 className="text-7xl md:text-9xl font-bold text-brand mb-12 leading-[0.8] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold text-brand mb-12 leading-[0.8] tracking-tighter uppercase">
             {t.modules.title1} <br />
             <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.modules.title2}</span> <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.modules.title3}</span>
           </h2>
-          <p className="text-2xl text-brand/70 leading-tight font-medium tracking-tight max-w-2xl">
+          <p className="text-base md:text-2xl text-brand/70 leading-tight font-medium tracking-tight max-w-2xl">
             {t.modules.description}
           </p>
         </div>
@@ -749,9 +749,9 @@ const UserRoles = ({ t }: { t: any }) => (
     <div className="grid-line-v left-2/3 opacity-30" />
     
     <div className="container-custom">
-      <div className="max-w-4xl mb-32">
+      <div className="max-w-4xl mb-12 md:mb-32">
         <div className="micro-label mb-12">{t.roles.microLabel}</div>
-        <h2 className="text-7xl md:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
+        <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
           {t.roles.title1} <br />
           <span className="text-brand/20">{t.roles.title2}</span> <br />
           <span className="text-accent italic font-serif lowercase tracking-normal">{t.roles.title3}</span>
@@ -821,7 +821,7 @@ const ProductVisuals = ({ t }: { t: any }) => (
     <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
     
     <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-2 gap-32 items-center">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-center">
         <div className="order-2 lg:order-1 relative">
           <div className="space-y-12 relative z-10">
             <motion.div 
@@ -883,10 +883,10 @@ const ProductVisuals = ({ t }: { t: any }) => (
 
         <div className="order-1 lg:order-2">
           <div className="micro-label mb-12">{t.visuals.microLabel}</div>
-          <h2 className="text-[87px] font-bold text-brand mb-12 leading-[83.6px] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-[87px] font-bold text-brand mb-12 leading-tight md:leading-[83.6px] tracking-tighter uppercase">
             {t.visuals.title1} <br />
             <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.visuals.title2}</span> <br />
-            <span className="text-accent italic font-serif lowercase tracking-normal text-[90px] leading-[97.6px]">{t.visuals.title3}</span>
+            <span className="text-accent italic font-serif lowercase tracking-normal md:text-[90px] md:leading-[97.6px]">{t.visuals.title3}</span>
           </h2>
           <p className="text-[20px] text-brand/70 leading-[32px] font-medium tracking-tight mb-12">
             {t.visuals.description}
@@ -921,10 +921,10 @@ const Benefits = ({ t }: { t: any }) => (
   <section className="section-padding bg-paper relative overflow-hidden leading-[27px]">
     <div className="grid-line-h top-0 opacity-30" />
     <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-2 gap-32 items-center">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-center">
         <div>
           <div className="micro-label mb-12">{t.benefits.microLabel}</div>
-          <h2 className="text-[71px] font-bold text-brand mb-12 leading-[89.6px] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-[71px] font-bold text-brand mb-12 leading-tight md:leading-[89.6px] tracking-tighter uppercase">
             {t.benefits.title1} <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.benefits.title2}</span>
           </h2>
@@ -956,7 +956,7 @@ const Benefits = ({ t }: { t: any }) => (
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
-                  className="text-[100px] font-bold text-white tracking-tighter leading-none"
+                  className="text-[56px] md:text-[100px] font-bold text-white tracking-tighter leading-none"
                 >
                   98<span className="text-accent">%</span>
                 </motion.div>
@@ -977,10 +977,10 @@ const Ecosystem = ({ t }: { t: any }) => (
     
     <div className="grid-line-v left-1/2 opacity-10" />
     <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-12 gap-20 items-end mb-32">
+      <div className="grid lg:grid-cols-12 gap-10 md:gap-20 items-end mb-12 md:mb-32">
         <div className="lg:col-span-8">
           <div className="micro-label text-accent mb-12 border-accent/20">{t.ecosystem.microLabel}</div>
-          <h2 className="text-7xl md:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
             {t.ecosystem.title1} <br />
             <span className="text-white/20 hover:text-accent transition-colors duration-700 cursor-default">{t.ecosystem.title2}</span>
           </h2>
@@ -1063,10 +1063,10 @@ const Ecosystem = ({ t }: { t: any }) => (
 const BusinessValue = ({ t }: { t: any }) => (
   <section className="section-padding bg-paper" id="business" data-nav="enterprise">
     <div className="container-custom">
-      <div className="grid lg:grid-cols-2 gap-32 items-start">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div>
           <div className="micro-label mb-12">{t.business.microLabel}</div>
-          <h2 className="text-7xl md:text-8xl font-bold text-brand mb-16 leading-[0.85] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-16 leading-[0.85] tracking-tighter uppercase">
             {t.business.title1} <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.business.title2}</span>
           </h2>
@@ -1118,7 +1118,7 @@ const BusinessValue = ({ t }: { t: any }) => (
 );
 
 const FinalCTA = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => (
-  <section className="py-64 px-6 bg-paper relative overflow-hidden">
+  <section className="py-24 md:py-64 px-6 bg-paper relative overflow-hidden">
     <div className="grid-line-h top-0 opacity-30" />
     <div className="max-w-6xl mx-auto text-center relative z-10">
       <motion.div
@@ -1126,7 +1126,7 @@ const FinalCTA = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => 
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-[103.3px] font-bold text-brand mb-16 tracking-tighter leading-[112.04px] uppercase">
+        <h2 className="text-[38px] md:text-[103.3px] font-bold text-brand mb-8 md:mb-16 tracking-tighter leading-tight md:leading-[112.04px] uppercase">
           {t.cta.title1} <br />
           <span className="text-brand/20">{t.cta.title2}</span> <br />
           <span className="text-accent italic font-serif lowercase tracking-normal">{t.cta.title3}</span>
@@ -1363,13 +1363,13 @@ const FooterCTA = ({ onStartTrial }: { onStartTrial: () => void }) => (
 const Footer = ({ t, onStartTrial }: { t: any; onStartTrial: () => void }) => (
   <>
   <FooterCTA onStartTrial={onStartTrial} />
-  <footer className="bg-paper border-t border-line py-32 px-6 relative overflow-hidden">
+  <footer className="bg-paper border-t border-line py-16 md:py-32 px-6 relative overflow-hidden">
     {/* Background Accents */}
     <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
     <div className="absolute top-0 left-0 w-64 h-64 bg-brand/5 rounded-full blur-[80px] pointer-events-none" />
 
     <div className="container-custom relative z-10">
-      <div className="grid md:grid-cols-12 gap-24 mb-32">
+      <div className="grid md:grid-cols-12 gap-12 md:gap-24 mb-16 md:mb-32">
         <div className="md:col-span-6">
           <div className="flex items-center gap-4 mb-12 group cursor-pointer">
             <Logo className="w-12 h-12 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(76,175,80,0.4)] transition-all duration-500" />
