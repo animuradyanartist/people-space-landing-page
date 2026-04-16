@@ -81,20 +81,20 @@ export const translations = {
       primaryUseCase: "Primary Use Case"
     },
     roles: {
-      microLabel: "Who is it for?",
+      microLabel: "Product Value Statement",
       title1: "Designed for",
       title2: "every",
       title3: "stakeholder.",
-      description: "People Space provides tailored experiences for different roles within the organization, ensuring everyone has the tools they need to succeed.",
-      role1: "Employees",
-      role1Desc: "A clean digital workspace to manage their professional life.",
-      role1Actions: ["Submit vacation & permission requests", "Update personal profile details", "Check attendance & working hours", "View team calendars & planning"],
+      description: "People Space delivers a unified digital HR environment where every role — from leadership to individual contributors — operates with clarity, consistency, and connection.",
+      role1: "Organizations",
+      role1Desc: "Establish consistent, scalable people processes and a unified digital HR environment.",
+      role1Actions: ["Unified employee experience across the company", "Scalable people management processes", "Stronger collaboration and workplace culture", "Consistent HR operations at every level"],
       role2: "Managers",
-      role2Desc: "Tools to lead teams with visibility and data-driven clarity.",
-      role2Actions: ["Review & approve team requests", "Monitor department-level attendance", "Coordinate vacation planning cycles", "View unit hierarchies & reporting lines"],
-      role3: "HR & Admins",
-      role3Desc: "Complete control over organizational data and workflows.",
-      role3Actions: ["Manage company structure & units", "Configure bespoke request flows", "Set granular system permissions", "Generate comprehensive staff reports"]
+      role2Desc: "Plan, lead, evaluate, and develop teams through clear processes and accessible tools.",
+      role2Actions: ["Focus on people and performance, not admin", "Clear processes for evaluation and development", "Real-time team visibility and planning", "Accessible tools for everyday leadership"],
+      role3: "Employees",
+      role3Desc: "Interact with HR processes, communication, and feedback in a simple and transparent way.",
+      role3Actions: ["Feel informed, supported, and connected", "Simple access to HR processes and requests", "Transparent communication and feedback", "Self-service throughout the work experience"]
     },
     visuals: {
       microLabel: "Operational Clarity",
@@ -318,20 +318,20 @@ export const translations = {
       primaryUseCase: "Հիմնական կիրառման դեպք"
     },
     roles: {
-      microLabel: "Ու՞մ համար է այն:",
+      microLabel: "Արժեքի հայտարարագիր",
       title1: "Նախատեսված",
       title2: "յուրաքանչյուր",
       title3: "շահագրգիռ կողմի համար:",
-      description: "People Space-ը տրամադրում է հարմարեցված փորձառություններ կազմակերպության ներսում տարբեր դերերի համար՝ ապահովելով, որ բոլորն ունենան հաջողության հասնելու համար անհրաժեշտ գործիքները:",
-      role1: "Աշխատակիցներ",
-      role1Desc: "Մաքուր թվային աշխատանքային տարածք՝ իրենց մասնագիտական կյանքը կառավարելու համար:",
-      role1Actions: ["Ներկայացնել արձակուրդի և թույլտվության հարցումներ", "Թարմացնել անձնական պրոֆիլի տվյալները", "Ստուգել հաճախելիությունը և աշխատանքային ժամերը", "Դիտել թիմի օրացույցները և պլանավորումը"],
+      description: "People Space-ը ապահովում է միասնական թվային HR միջավայր, որտեղ յուրաքանչյուր դեր՝ ղեկավարությունից մինչև անհատական ներդրումողներ՝ գորածում է հստակությամբ, հետևողականությամբ և կապվածությամբ:",
+      role1: "Կազմակերպություններ",
+      role1Desc: "Հստակեք հետևողական, մաշտաբավորվոխ մարդկանց գործընթացներ և միասնական թվային HR միջավայր:",
+      role1Actions: ["Միասնական աշխատակցական փորձառություն ընկերությունում", "Մաշտաբավորվոխ մարդկանց կառավարման գործընթացներ", "Համագործակցություն և աշխատավայրի մշակույթ", "Հետևողական HR գործառույթներ յուրաքանչյուր մակարդակում"],
       role2: "Մենեջերներ",
-      role2Desc: "Թիմերը տեսանելիությամբ և տվյալների վրա հիմնված հստակությամբ առաջնորդելու գործիքներ:",
-      role2Actions: ["Վերանայել և հաստատել թիմի հարցումները", "Վերահսկեք բաժնի մակարդակի հաճախելիությունը", "Համակարգել արձակուրդների պլանավորման փուլերը", "Դիտել միավորների հիերարխիան և հաշվետվողականության գծերը"],
-      role3: "HR և Ադմիններ",
-      role3Desc: "Կազմակերպչական տվյալների և աշխատանքային հոսքերի ամբողջական վերահսկողություն:",
-      role3Actions: ["Կառավարել ընկերության կառուցվածքը և միավորները", "Կարգավորել հարցումների հատուկ հոսքեր", "Սահմանել համակարգի մանրամասն թույլտվություններ", "Ստեղծել անձնակազմի համապարփակ հաշվետվություններ"]
+      role2Desc: "Պլանավորեք, առաջնորդեք, գնահատեք և զարգացրեք թիմերը հստակ գործընթացներով և հասանելի գործիքներով:",
+      role2Actions: ["Կենտրոնացեք մարդկանց և արդյունավետության վրա, ոչ վարչականի", "Գնահատման և զարգացման հստակ գործընթացներ", "Իրական ժամանակի թիմի տեսանելիություն և պլանավորում", "Հասանելի գործիքներ ամենօրյա ղեկավարությամբ"],
+      role3: "Աշխատակիցներ",
+      role3Desc: "HR գործընթացներով, հաղորդակցությամբ և հետադարձ կապով պարզ և թափանցիկ ձևով:",
+      role3Actions: ["Զգալ տեղեկացված, աջակված և կապված", "Պարզ մուտք HR գործընթացներին և հարցումներին", "Թափանցիկ հաղորդակցություն և հետադարձ կապ", "Ինքնասպասարկում աշխատանքային փորձառության ընթացքում"]
     },
     visuals: {
       microLabel: "Գործառնական հստակություն",

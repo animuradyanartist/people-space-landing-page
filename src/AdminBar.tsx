@@ -37,7 +37,7 @@ const BrandingEditor = ({
           <h3 className="font-bold text-gray-900 text-sm flex items-center gap-2">
             <Palette className="w-4 h-4 text-[#4CAF50]" /> Branding
           </h3>
-          <p className="text-[10px] text-gray-400 mt-0.5">Logo & colors — saved to localStorage</p>
+          <p className="text-[10px] text-gray-400 mt-0.5">Logo & colors — synced across devices</p>
         </div>
         <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
           <X className="w-4 h-4 text-gray-400" />
@@ -148,11 +148,12 @@ const SECTIONS = [
 ];
 
 export const AdminBar = ({ lang }: { lang: Lang }) => {
-  const { isAdmin, exitAdmin, resetOverrides, updateOverride, getContent, overrides, branding, updateBranding, resetBranding } = useAdmin();
+  const { isAdmin, exitAdmin, resetOverrides, updateOverride, getContent, overrides, branding, updateBranding, resetBranding, saveToServer, isSyncing, syncError } = useAdmin();
   const [isPanelOpen, setIsPanelOpen]     = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [localValues, setLocalValues]     = useState<Record<string, any>>({});
   const [saved, setSaved]                 = useState(false);
+  const [serverSaved, setServerSaved]     = useState(false);
 
   const langOverrides = overrides[lang] ?? {};
 
@@ -164,7 +165,7 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
     setActiveSection(key);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!activeSection) return;
     const base = (translations as any)[lang][activeSection] ?? {};
     for (const [key, value] of Object.entries(localValues)) {
@@ -173,12 +174,23 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
       }
     }
     setSaved(true);
+    // Save to server after a short delay to let state update
+    setTimeout(async () => {
+      const ok = await saveToServer();
+      if (ok) {
+        setServerSaved(true);
+        setTimeout(() => setServerSaved(false), 2000);
+      }
+    }, 100);
     setTimeout(() => setSaved(false), 2000);
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (confirm('Reset ALL content to defaults? This cannot be undone.')) {
       resetOverrides();
+      resetBranding();
+      // Sync empty state to server
+      setTimeout(() => saveToServer(), 100);
     }
   };
 
@@ -357,7 +369,7 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
                         {SECTIONS.find(s => s.key === activeSection)?.label}
                       </h3>
                       <p className="text-[10px] text-gray-400 mt-0.5">
-                        Editing <span className="font-bold">{lang.toUpperCase()}</span> · saved to localStorage
+                        Editing <span className="font-bold">{lang.toUpperCase()}</span> · {syncError ? <span className="text-red-500">{syncError}</span> : serverSaved ? <span className="text-green-600">synced to server</span> : 'synced across devices'}
                       </p>
                     </div>
                   </div>
@@ -377,8 +389,8 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
                           : 'bg-[#4CAF50] text-white hover:bg-[#3d9943] active:scale-[0.98]'
                       }`}
                     >
-                      {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
-                      {saved ? 'Saved!' : 'Save Changes'}
+                      {saved ? <Check className="w-4 h-4" /> : isSyncing ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                      {saved ? 'Saved!' : isSyncing ? 'Syncing...' : 'Save Changes'}
                     </button>
                   </div>
                 </>

@@ -468,7 +468,7 @@ const ModulesSection = ({ t }: { t: any }) => (
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -10 }}
-            className="group relative p-10 bg-white border border-line hover:border-accent/50 transition-all duration-700 cursor-default flex flex-col overflow-hidden rounded-[40px] shadow-[0_10px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_60px_rgba(114,191,68,0.1)]"
+            className="group relative p-8 bg-white border border-line hover:border-accent/50 transition-all duration-700 cursor-default flex flex-col overflow-hidden rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_60px_rgba(114,191,68,0.1)]"
           >
             {/* Glassmorphism Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -477,10 +477,10 @@ const ModulesSection = ({ t }: { t: any }) => (
             <div className={`absolute -top-20 -right-20 w-64 h-64 ${module.color} opacity-[0.03] group-hover:opacity-[0.08] rounded-full blur-[80px] transition-all duration-1000 group-hover:scale-150 pointer-events-none`} />
             
             <div className="relative z-10">
-              <div className="flex justify-between items-start mb-12">
-                <motion.div 
+              <div className="flex justify-between items-start mb-6">
+                <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0] }}
-                  className={`w-16 h-16 rounded-3xl ${module.color} flex items-center justify-center shadow-2xl shadow-brand/10 group-hover:shadow-accent/40 transition-all duration-500`}
+                  className={`w-14 h-14 rounded-2xl ${module.color} flex items-center justify-center shadow-2xl shadow-brand/10 group-hover:shadow-accent/40 transition-all duration-500`}
                 >
                   <div className="text-white group-hover:scale-110 transition-transform duration-500">{module.icon}</div>
                 </motion.div>
@@ -489,27 +489,15 @@ const ModulesSection = ({ t }: { t: any }) => (
                 </div>
               </div>
 
-              <h4 className="text-3xl font-bold text-brand mb-6 tracking-tighter group-hover:text-accent transition-colors duration-500">
+              <h4 className="text-2xl font-bold text-brand mb-4 tracking-tighter group-hover:text-accent transition-colors duration-500">
                 {module.name}
               </h4>
-              <p className="text-lg text-brand/60 mb-12 leading-relaxed font-medium group-hover:text-brand/80 transition-colors duration-500">
+              <p className="text-base text-brand/60 mb-6 leading-relaxed font-medium group-hover:text-brand/80 transition-colors duration-500">
                 {module.desc}
               </p>
-              
-              <div className="mb-12 transform group-hover:scale-[1.05] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]">
-                <ModuleVisual type={module.visualType} t={t} />
-              </div>
 
-              <div className="pt-8 border-t border-line/50 flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-brand/30 group-hover:text-accent transition-colors">{t.modules.primaryUseCase}</span>
-                  <div className="w-10 h-10 rounded-full bg-paper border border-line flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
-                    <ArrowUpRight className="w-5 h-5 text-brand/40 group-hover:text-brand transition-all duration-500" />
-                  </div>
-                </div>
-                <p className="text-sm text-brand/50 italic font-serif leading-relaxed group-hover:text-brand transition-colors duration-500">
-                  "{module.use}"
-                </p>
+              <div className="transform group-hover:scale-[1.03] transition-transform duration-700">
+                <ModuleVisual type={module.visualType} t={t} />
               </div>
             </div>
           </motion.div>
@@ -772,7 +760,7 @@ const UserRoles = ({ t }: { t: any }) => (
         {[
           {
             role: t.roles.role1,
-            icon: <UserCircle className="w-6 h-6" />,
+            icon: <Building2 className="w-6 h-6" />,
             desc: t.roles.role1Desc,
             actions: t.roles.role1Actions
           },
@@ -784,7 +772,7 @@ const UserRoles = ({ t }: { t: any }) => (
           },
           {
             role: t.roles.role3,
-            icon: <ShieldCheck className="w-6 h-6" />,
+            icon: <UserCircle className="w-6 h-6" />,
             desc: t.roles.role3Desc,
             actions: t.roles.role3Actions
           }

@@ -1,7 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode, FormEvent } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode, FormEvent } from 'react';
 import { translations } from './translations';
-
-const ADMIN_PASSWORD = 'admin123';
 
 type Lang = 'en' | 'am';
 type Overrides = Record<string, Record<string, Record<string, any>>>;
@@ -23,22 +21,41 @@ interface AdminContextType {
   branding: Branding;
   updateBranding: (patch: Partial<Branding>) => void;
   resetBranding: () => void;
+  saveToServer: () => Promise<boolean>;
+  isSyncing: boolean;
+  syncError: string | null;
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
 
-const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: () => void; onCancel: () => void }) => {
+const API_URL = '/api/admin-content';
+
+const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: (password: string) => void; onCancel: () => void }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      onSuccess();
-    } else {
-      setError(true);
-      setPassword('');
-      setTimeout(() => setError(false), 1500);
+    setLoading(true);
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, validate_only: true }),
+      });
+      if (res.ok) {
+        onSuccess(password);
+      } else {
+        setError(true);
+        setPassword('');
+        setTimeout(() => setError(false), 1500);
+      }
+    } catch {
+      // If server unreachable, still allow local-only admin
+      onSuccess(password);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,9 +99,9 @@ const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: () => void; onCance
               style={{ flex: 1, padding: '11px 0', borderRadius: 12, border: '2px solid #e5e7eb', background: 'transparent', fontSize: 14, fontWeight: 700, color: '#6b7280', cursor: 'pointer' }}>
               Cancel
             </button>
-            <button type="submit"
-              style={{ flex: 2, padding: '11px 0', borderRadius: 12, border: 'none', background: '#4CAF50', fontSize: 14, fontWeight: 700, color: '#fff', cursor: 'pointer' }}>
-              Enter Admin
+            <button type="submit" disabled={loading}
+              style={{ flex: 2, padding: '11px 0', borderRadius: 12, border: 'none', background: loading ? '#9ca3af' : '#4CAF50', fontSize: 14, fontWeight: 700, color: '#fff', cursor: loading ? 'wait' : 'pointer' }}>
+              {loading ? 'Verifying...' : 'Enter Admin'}
             </button>
           </div>
         </form>
@@ -96,6 +113,11 @@ const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: () => void; onCance
 export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncError, setSyncError] = useState<string | null>(null);
+  const adminPasswordRef = useRef<string>('');
+
+  // Initialize from localStorage cache, then fetch from server
   const [overrides, setOverrides] = useState<Overrides>(() => {
     try { return JSON.parse(localStorage.getItem('ps_content_overrides') || '{}'); }
     catch { return {}; }
@@ -105,6 +127,29 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     catch { return {}; }
   });
 
+  // Fetch server data on mount (for ALL visitors)
+  useEffect(() => {
+    const fetchServerData = async () => {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.overrides && Object.keys(data.overrides).length > 0) {
+          setOverrides(data.overrides);
+          localStorage.setItem('ps_content_overrides', JSON.stringify(data.overrides));
+        }
+        if (data.branding && Object.keys(data.branding).length > 0) {
+          setBranding(data.branding);
+          localStorage.setItem('ps_branding', JSON.stringify(data.branding));
+        }
+      } catch {
+        // Server unavailable — use localStorage cache (already loaded)
+      }
+    };
+    fetchServerData();
+  }, []);
+
+  // Persist to localStorage on change
   useEffect(() => {
     localStorage.setItem('ps_content_overrides', JSON.stringify(overrides));
   }, [overrides]);
@@ -112,6 +157,35 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem('ps_branding', JSON.stringify(branding));
   }, [branding]);
+
+  // Save to server
+  const saveToServer = useCallback(async (): Promise<boolean> => {
+    if (!adminPasswordRef.current) return false;
+    setIsSyncing(true);
+    setSyncError(null);
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: adminPasswordRef.current,
+          overrides,
+          branding,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setSyncError(data.error || 'Failed to sync');
+        return false;
+      }
+      return true;
+    } catch (err) {
+      setSyncError('Server unavailable');
+      return false;
+    } finally {
+      setIsSyncing(false);
+    }
+  }, [overrides, branding]);
 
   // Keyboard shortcut: Ctrl+Shift+A
   useEffect(() => {
@@ -147,7 +221,11 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const updateBranding = (patch: Partial<Branding>) => setBranding(prev => ({ ...prev, ...patch }));
-  const resetBranding  = () => { setBranding({}); localStorage.removeItem('ps_branding'); };
+
+  const resetBranding = () => {
+    setBranding({});
+    localStorage.removeItem('ps_branding');
+  };
 
   const getContent = (lang: Lang) => {
     const base = (translations as any)[lang];
@@ -172,12 +250,19 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
         branding,
         updateBranding,
         resetBranding,
+        saveToServer,
+        isSyncing,
+        syncError,
       }}
     >
       {children}
       {showPrompt && (
         <PasswordModal
-          onSuccess={() => { setShowPrompt(false); setIsAdmin(true); }}
+          onSuccess={(pw) => {
+            adminPasswordRef.current = pw;
+            setShowPrompt(false);
+            setIsAdmin(true);
+          }}
           onCancel={() => setShowPrompt(false)}
         />
       )}
