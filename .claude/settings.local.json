@@ -9,7 +9,16 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(npx netlify-cli:*)",
+      "Bash(npm run:*)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(git push:*)",
+      "Bash(npx tsc:*)",
+      "Bash(python3)",
+      "mcp__80f2d10d-ed3e-4d3b-97d4-4c4389455daf__get-netlify-coding-context"
     ]
   }
 }

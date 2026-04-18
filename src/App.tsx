@@ -406,59 +406,87 @@ const ModulesSection = ({ t }: { t: any }) => (
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {[
+          // Admin modules
           {
-            icon: <ShieldCheck className="w-6 h-6" />,
+            icon: <Users className="w-6 h-6" />,
             name: t.modules.module1Name,
             desc: t.modules.module1Desc,
-            use: t.modules.module1Use,
             visualType: 0,
-            tag: "Core",
+            tag: t.modules.adminTag,
             color: "bg-blue-500"
           },
           {
-            icon: <Users className="w-6 h-6" />,
+            icon: <Building2 className="w-6 h-6" />,
             name: t.modules.module2Name,
             desc: t.modules.module2Desc,
-            use: t.modules.module2Use,
             visualType: 2,
-            tag: "Structure",
+            tag: t.modules.adminTag,
             color: "bg-purple-500"
           },
           {
-            icon: <UserCircle className="w-6 h-6" />,
+            icon: <Layers className="w-6 h-6" />,
             name: t.modules.module3Name,
             desc: t.modules.module3Desc,
-            use: t.modules.module3Use,
             visualType: 0,
-            tag: "Self-Service",
-            color: "bg-orange-500"
+            tag: t.modules.adminTag,
+            color: "bg-indigo-500"
+          },
+          {
+            icon: <ShieldCheck className="w-6 h-6" />,
+            name: t.modules.module4Name,
+            desc: t.modules.module4Desc,
+            visualType: 0,
+            tag: t.modules.adminTag,
+            color: "bg-red-500"
           },
           {
             icon: <Calendar className="w-6 h-6" />,
-            name: t.modules.module4Name,
-            desc: t.modules.module4Desc,
-            use: t.modules.module4Use,
+            name: t.modules.module5Name,
+            desc: t.modules.module5Desc,
             visualType: 1,
-            tag: "Planning",
+            tag: t.modules.adminTag,
+            color: "bg-orange-500"
+          },
+          {
+            icon: <BarChart3 className="w-6 h-6" />,
+            name: t.modules.module6Name,
+            desc: t.modules.module6Desc,
+            visualType: 0,
+            tag: t.modules.adminTag,
+            color: "bg-pink-500"
+          },
+          // User modules
+          {
+            icon: <UserCircle className="w-6 h-6" />,
+            name: t.modules.module7Name,
+            desc: t.modules.module7Desc,
+            visualType: 2,
+            tag: t.modules.userTag,
             color: "bg-accent"
           },
           {
             icon: <Clock className="w-6 h-6" />,
-            name: t.modules.module5Name,
-            desc: t.modules.module5Desc,
-            use: t.modules.module5Use,
+            name: t.modules.module8Name,
+            desc: t.modules.module8Desc,
             visualType: 4,
-            tag: "Real-time",
-            color: "bg-red-500"
+            tag: t.modules.userTag,
+            color: "bg-teal-500"
+          },
+          {
+            icon: <FileText className="w-6 h-6" />,
+            name: t.modules.module9Name,
+            desc: t.modules.module9Desc,
+            visualType: 1,
+            tag: t.modules.userTag,
+            color: "bg-cyan-500"
           },
           {
             icon: <MapPin className="w-6 h-6" />,
-            name: t.modules.module6Name,
-            desc: t.modules.module6Desc,
-            use: t.modules.module6Use,
-            visualType: 3,
-            tag: "Mobility",
-            color: "bg-teal-500"
+            name: t.modules.module10Name,
+            desc: t.modules.module10Desc,
+            visualType: 1,
+            tag: t.modules.userTag,
+            color: "bg-emerald-500"
           }
         ].map((module, i) => (
           <motion.div 
@@ -913,53 +941,57 @@ const ProductVisuals = ({ t }: { t: any }) => (
 );
 
 const Benefits = ({ t }: { t: any }) => (
-  <section className="section-padding bg-paper relative overflow-hidden leading-[27px]">
-    <div className="grid-line-h top-0 opacity-30" />
-    <div className="container-custom relative z-10">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-center">
+  <section className="section-padding bg-paper">
+    <div className="container-custom">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div>
           <div className="micro-label mb-12">{t.benefits.microLabel}</div>
-          <h2 className="text-[38px] md:text-[71px] font-bold text-brand mb-12 leading-tight md:leading-[89.6px] tracking-tighter uppercase">
+          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-16 leading-[0.85] tracking-tighter uppercase">
             {t.benefits.title1} <br />
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.benefits.title2}</span>
           </h2>
-          <div className="grid sm:grid-cols-2 gap-12">
+          <div className="space-y-12">
             {[
               { title: t.benefits.card1Title, desc: t.benefits.card1Desc },
               { title: t.benefits.card2Title, desc: t.benefits.card2Desc }
             ].map((item, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="space-y-4 group"
-              >
-                <div className="w-12 h-px bg-line group-hover:bg-accent transition-colors duration-500" />
-                <h4 className="text-xl font-bold text-brand uppercase tracking-tight">{item.title}</h4>
-                <p className="text-brand/50 leading-snug font-medium text-sm">{item.desc}</p>
-              </motion.div>
+              <div key={i} className="flex gap-8 group">
+                <div className="w-12 h-12 rounded-full bg-brand flex items-center justify-center shrink-0 group-hover:bg-accent transition-all duration-500">
+                  <Zap className="w-5 h-5 text-white group-hover:text-brand transition-colors duration-500" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-brand mb-2 uppercase tracking-tight">{item.title}</h4>
+                  <p className="text-brand/60 leading-snug font-medium text-sm">{item.desc}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
-        <div className="relative group">
-          <div className="aspect-square bg-brand flex items-center justify-center p-12 md:p-24 relative overflow-hidden">
-             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(114,191,68,0.2),transparent)]" />
-             <div className="relative z-10 text-center">
-                <motion.div 
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  className="text-[56px] md:text-[100px] font-bold text-white tracking-tighter leading-none"
-                >
-                  98<span className="text-accent">%</span>
-                </motion.div>
-                <div className="text-accent uppercase tracking-[0.4em] text-[17px] font-bold">{t.benefits.statLabel}</div>
-                <div className="text-white/30 text-[11px] mt-3 font-medium">Based on customer surveys</div>
-             </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="bg-brand p-16 text-white relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl opacity-20" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-6 mb-12">
+              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-accent" />
+              </div>
+              <h4 className="text-xl font-bold uppercase tracking-tight">{t.benefits.resultsTitle}</h4>
+            </div>
+            <ul className="space-y-8">
+              {t.benefits.resultsList.map((item: string, i: number) => (
+                <li key={i} className="flex items-center gap-6 text-white/50 font-medium text-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
@@ -1453,11 +1485,8 @@ function AppInner() {
       <Navbar t={t} lang={lang} setLang={setLang} onStartTrial={() => setIsRegistrationOpen(true)} />
       <main>
         <Hero t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
-        <PlatformOverview t={t} />
         <ModulesSection t={t} />
-        <ProblemSection t={t} />
         <UserRoles t={t} />
-        <ProductVisuals t={t} />
         <Benefits t={t} />
         <Ecosystem t={t} />
         <BusinessValue t={t} />
