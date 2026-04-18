@@ -64,8 +64,17 @@ const Logo = ({ className = "w-12 h-12", iconClassName = "w-7 h-7" }: { classNam
   );
 };
 
-const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setLang: (l: string) => void, onStartTrial: () => void }) => (
-  <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-8 pointer-events-none">
+const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setLang: (l: string) => void, onStartTrial: () => void }) => {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+  <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-6 pointer-events-none transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-b border-line/50' : ''}`}>
     <div className="container-custom flex items-center justify-between pointer-events-auto">
       <div className="flex items-center gap-4 group cursor-pointer">
         <Logo className="w-12 h-12 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(76,175,80,0.4)] transition-all duration-500" />
@@ -108,7 +117,8 @@ const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setL
       </div>
     </div>
   </nav>
-);
+  );
+};
 
 const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
   const { scrollY } = useScroll();
@@ -1284,7 +1294,7 @@ const ContactModal = ({ isOpen, onClose, lang, onSuccess }: { isOpen: boolean, o
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        onClick={onClose} className="absolute inset-0 bg-brand/50 backdrop-blur-md" />
+        className="absolute inset-0 bg-brand/50 backdrop-blur-md" />
 
       <motion.div initial={{ scale: 0.92, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 20 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -1332,7 +1342,8 @@ const ContactModal = ({ isOpen, onClose, lang, onSuccess }: { isOpen: boolean, o
                     <option value="11-50">11–50</option>
                     <option value="51-200">51–200</option>
                     <option value="201-500">201–500</option>
-                    <option value="500+">500+</option>
+                    <option value="500-1000">500–1000</option>
+                    <option value="1000+">1000+</option>
                   </select>
                 </div>
 
@@ -1490,7 +1501,6 @@ function AppInner() {
         <Benefits t={t} />
         <Ecosystem t={t} />
         <BusinessValue t={t} />
-        <FinalCTA t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
       </main>
 
       <Footer t={t} onStartTrial={() => setIsRegistrationOpen(true)} />

@@ -201,7 +201,7 @@ export const translations = {
       successTitle: "Demo Request Sent!",
       successDesc: "Thank you! Our team will reach out within 24 hours to schedule your personalized demo.",
       goToDashboard: "Explore Demo Dashboard",
-      sizes: ["1-10", "11-50", "51-200", "201-500", "500+"]
+      sizes: ["1-10", "11-50", "51-200", "201-500", "500-1000", "1000+"]
     },
     contact: {
       title: "Let's get in touch",
@@ -448,7 +448,7 @@ export const translations = {
       successTitle: "Դեմոյի հարցումն ուղարկվեց:",
       successDesc: "Շնորհակալություն: Մեր թիմը կկապվի ձեզ հետ 24 ժամվա ընթացքում՝ ձեր անձնական դեմոն պլանավորելու համար:",
       goToDashboard: "Ուսումնասիրել դեմո վահանակը",
-      sizes: ["1-10", "11-50", "51-200", "201-500", "500+"]
+      sizes: ["1-10", "11-50", "51-200", "201-500", "500-1000", "1000+"]
     },
     contact: {
       title: "Կապ հաստատենք",
