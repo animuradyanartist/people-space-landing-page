@@ -127,21 +127,27 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     catch { return {}; }
   });
 
-  // Fetch server data on mount (for ALL visitors)
+  // Refs mirror latest state so saveToServer always reads the latest values
+  // (avoids stale closures when saveToServer is called right after setState).
+  const overridesRef = useRef(overrides);
+  const brandingRef = useRef(branding);
+  useEffect(() => { overridesRef.current = overrides; }, [overrides]);
+  useEffect(() => { brandingRef.current = branding; }, [branding]);
+
+  // Fetch server data on mount (for ALL visitors). Always sync from server —
+  // even if empty — so resets on another device propagate here.
   useEffect(() => {
     const fetchServerData = async () => {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(API_URL, { cache: 'no-store' });
         if (!res.ok) return;
         const data = await res.json();
-        if (data.overrides && Object.keys(data.overrides).length > 0) {
-          setOverrides(data.overrides);
-          localStorage.setItem('ps_content_overrides', JSON.stringify(data.overrides));
-        }
-        if (data.branding && Object.keys(data.branding).length > 0) {
-          setBranding(data.branding);
-          localStorage.setItem('ps_branding', JSON.stringify(data.branding));
-        }
+        const nextOverrides = data.overrides ?? {};
+        const nextBranding = data.branding ?? {};
+        setOverrides(nextOverrides);
+        setBranding(nextBranding);
+        localStorage.setItem('ps_content_overrides', JSON.stringify(nextOverrides));
+        localStorage.setItem('ps_branding', JSON.stringify(nextBranding));
       } catch {
         // Server unavailable — use localStorage cache (already loaded)
       }
@@ -158,7 +164,20 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('ps_branding', JSON.stringify(branding));
   }, [branding]);
 
-  // Save to server
+  // Auto-sync to server (debounced) whenever data changes while admin is logged in.
+  // Skips the initial mount so we don't re-save what we just fetched.
+  const didInit = useRef(false);
+  useEffect(() => {
+    if (!isAdmin || !adminPasswordRef.current) return;
+    if (!didInit.current) { didInit.current = true; return; }
+    const t = setTimeout(() => { void saveToServerRef.current?.(); }, 600);
+    return () => clearTimeout(t);
+  }, [overrides, branding, isAdmin]);
+
+  // Ref holder for saveToServer so the autosync effect can call the latest version
+  const saveToServerRef = useRef<() => Promise<boolean>>();
+
+  // Save to server — reads latest state via refs so it never sends stale data.
   const saveToServer = useCallback(async (): Promise<boolean> => {
     if (!adminPasswordRef.current) return false;
     setIsSyncing(true);
@@ -169,8 +188,8 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           password: adminPasswordRef.current,
-          overrides,
-          branding,
+          overrides: overridesRef.current,
+          branding: brandingRef.current,
         }),
       });
       if (!res.ok) {
@@ -185,7 +204,10 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsSyncing(false);
     }
-  }, [overrides, branding]);
+  }, []);
+
+  // Keep the autosync effect in sync with the latest saveToServer
+  useEffect(() => { saveToServerRef.current = saveToServer; }, [saveToServer]);
 
   // Keyboard shortcut: Ctrl+Shift+A
   useEffect(() => {

@@ -174,14 +174,15 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
       }
     }
     setSaved(true);
-    // Save to server after a short delay to let state update
-    setTimeout(async () => {
-      const ok = await saveToServer();
-      if (ok) {
-        setServerSaved(true);
-        setTimeout(() => setServerSaved(false), 2000);
-      }
-    }, 100);
+    // Wait for React to flush state updates, then sync to server
+    // (saveToServer reads latest state via refs — no stale closures).
+    await new Promise(r => requestAnimationFrame(() => r(null)));
+    await new Promise(r => requestAnimationFrame(() => r(null)));
+    const ok = await saveToServer();
+    if (ok) {
+      setServerSaved(true);
+      setTimeout(() => setServerSaved(false), 2000);
+    }
     setTimeout(() => setSaved(false), 2000);
   };
 
