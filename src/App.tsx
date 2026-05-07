@@ -154,9 +154,9 @@ const Hero = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => {
               <span className="group-hover:text-accent transition-colors">{t.hero.microLabel}</span>
             </div>
             
-            <h1 className="text-[14vw] sm:text-[10vw] lg:text-[8rem] font-bold text-brand leading-[0.85] mb-8 tracking-tighter uppercase">
-              {t.hero.title1} <br />
-              <span className="text-accent italic font-serif lowercase tracking-normal hover:text-brand transition-colors duration-700 cursor-default">{t.hero.title2}</span> <br />
+            <h1 className="text-[10vw] sm:text-[7vw] lg:text-[5rem] font-bold text-brand leading-[0.95] mb-8 tracking-tighter uppercase">
+              {t.hero.title1}{" "}
+              <span className="text-accent italic font-serif lowercase tracking-normal hover:text-brand transition-colors duration-700 cursor-default">{t.hero.title2}</span>{" "}
               <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.hero.title3}</span>
             </h1>
 
@@ -284,9 +284,9 @@ const PlatformOverview = ({ t }: { t: any }) => (
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div className="max-w-xl">
           <div className="micro-label mb-12">{t.overview.microLabel}</div>
-          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
-            {t.overview.title1} <br />
-            <span className="text-brand/20">{t.overview.title2}</span> <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+            {t.overview.title1}{" "}
+            <span className="text-brand/20">{t.overview.title2}</span>{" "}
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.overview.title3}</span>
           </h2>
           <p className="text-base md:text-2xl text-brand/70 leading-tight font-medium tracking-tight">
@@ -342,9 +342,9 @@ const ProblemSection = ({ t }: { t: any }) => (
       <div className="grid lg:grid-cols-12 gap-10 md:gap-20 items-end mb-12 md:mb-32">
         <div className="lg:col-span-8">
           <div className="micro-label text-accent mb-12">{t.problem.microLabel}</div>
-          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
-            {t.problem.title1} <br />
-            <span className="text-white/20 hover:text-accent transition-colors duration-700 cursor-default">{t.problem.title2}</span> <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold mb-0 leading-[1.05] tracking-tighter uppercase">
+            {t.problem.title1}{" "}
+            <span className="text-white/20 hover:text-accent transition-colors duration-700 cursor-default">{t.problem.title2}</span>{" "}
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.problem.title3}</span>
           </h2>
         </div>
@@ -397,9 +397,9 @@ const ModulesSection = ({ t }: { t: any }) => (
             <span className="w-8 h-px bg-accent" />
             {t.modules.microLabel}
           </div>
-          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold text-brand mb-12 leading-[0.8] tracking-tighter uppercase">
-            {t.modules.title1} <br />
-            <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.modules.title2}</span> <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+            {t.modules.title1}{" "}
+            <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.modules.title2}</span>{" "}
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.modules.title3}</span>
           </h2>
           <p className="text-base md:text-2xl text-brand/70 leading-tight font-medium tracking-tight max-w-2xl">
@@ -784,9 +784,9 @@ const UserRoles = ({ t }: { t: any }) => (
     <div className="container-custom">
       <div className="max-w-4xl mb-12 md:mb-32">
         <div className="micro-label mb-12">{t.roles.microLabel}</div>
-        <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-12 leading-[0.85] tracking-tighter uppercase">
-          {t.roles.title1} <br />
-          <span className="text-brand/20">{t.roles.title2}</span> <br />
+        <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+          {t.roles.title1}{" "}
+          <span className="text-brand/20">{t.roles.title2}</span>{" "}
           <span className="text-accent italic font-serif lowercase tracking-normal">{t.roles.title3}</span>
         </h2>
         <p className="text-[20px] text-brand/70 leading-[32px] font-medium tracking-tight max-w-3xl">
@@ -916,10 +916,10 @@ const ProductVisuals = ({ t }: { t: any }) => (
 
         <div className="order-1 lg:order-2">
           <div className="micro-label mb-12">{t.visuals.microLabel}</div>
-          <h2 className="text-[38px] md:text-[87px] font-bold text-brand mb-12 leading-tight md:leading-[83.6px] tracking-tighter uppercase">
-            {t.visuals.title1} <br />
-            <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.visuals.title2}</span> <br />
-            <span className="text-accent italic font-serif lowercase tracking-normal md:text-[90px] md:leading-[97.6px]">{t.visuals.title3}</span>
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+            {t.visuals.title1}{" "}
+            <span className="text-brand/20 hover:text-accent transition-colors duration-700 cursor-default">{t.visuals.title2}</span>{" "}
+            <span className="text-accent italic font-serif lowercase tracking-normal">{t.visuals.title3}</span>
           </h2>
           <p className="text-[20px] text-brand/70 leading-[32px] font-medium tracking-tight mb-12">
             {t.visuals.description}
@@ -956,8 +956,8 @@ const Benefits = ({ t }: { t: any }) => (
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div>
           <div className="micro-label mb-12">{t.benefits.microLabel}</div>
-          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-16 leading-[0.85] tracking-tighter uppercase">
-            {t.benefits.title1} <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+            {t.benefits.title1}{" "}
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.benefits.title2}</span>
           </h2>
           <div className="space-y-12">
@@ -1017,8 +1017,8 @@ const Ecosystem = ({ t }: { t: any }) => (
       <div className="grid lg:grid-cols-12 gap-10 md:gap-20 items-end mb-12 md:mb-32">
         <div className="lg:col-span-8">
           <div className="micro-label text-accent mb-12 border-accent/20">{t.ecosystem.microLabel}</div>
-          <h2 className="text-[38px] md:text-7xl lg:text-9xl font-bold mb-0 leading-[0.8] tracking-tighter uppercase">
-            {t.ecosystem.title1} <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold mb-0 leading-[1.05] tracking-tighter uppercase">
+            {t.ecosystem.title1}{" "}
             <span className="text-white/20 hover:text-accent transition-colors duration-700 cursor-default">{t.ecosystem.title2}</span>
           </h2>
         </div>
@@ -1117,8 +1117,8 @@ const BusinessValue = ({ t }: { t: any }) => (
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div>
           <div className="micro-label mb-12">{t.business.microLabel}</div>
-          <h2 className="text-[38px] md:text-7xl lg:text-8xl font-bold text-brand mb-16 leading-[0.85] tracking-tighter uppercase">
-            {t.business.title1} <br />
+          <h2 className="text-[28px] md:text-4xl lg:text-5xl font-bold text-brand mb-12 leading-[1.05] tracking-tighter uppercase">
+            {t.business.title1}{" "}
             <span className="text-accent italic font-serif lowercase tracking-normal">{t.business.title2}</span>
           </h2>
           <div className="space-y-12">
@@ -1177,9 +1177,9 @@ const FinalCTA = ({ t, onStartTrial }: { t: any, onStartTrial: () => void }) => 
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-[38px] md:text-[103.3px] font-bold text-brand mb-8 md:mb-16 tracking-tighter leading-tight md:leading-[112.04px] uppercase">
-          {t.cta.title1} <br />
-          <span className="text-brand/20">{t.cta.title2}</span> <br />
+        <h2 className="text-[28px] md:text-4xl lg:text-6xl font-bold text-brand mb-8 md:mb-12 tracking-tighter leading-[1.05] uppercase">
+          {t.cta.title1}{" "}
+          <span className="text-brand/20">{t.cta.title2}</span>{" "}
           <span className="text-accent italic font-serif lowercase tracking-normal">{t.cta.title3}</span>
         </h2>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

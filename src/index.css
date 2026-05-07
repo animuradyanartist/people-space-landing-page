@@ -34,7 +34,7 @@
 
 @layer components {
   .section-padding {
-    @apply py-32 md:py-56 px-6;
+    @apply py-20 md:py-32 px-6;
   }
   
   .container-custom {
