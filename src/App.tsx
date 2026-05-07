@@ -1494,7 +1494,6 @@ function AppInner() {
         <UserRoles t={t} />
         <Benefits t={t} />
         <Ecosystem t={t} />
-        <BusinessValue t={t} />
       </main>
 
       <Footer t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
