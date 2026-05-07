@@ -82,10 +82,9 @@ const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setL
       
       <div className="hidden md:flex items-center gap-12 bg-white/70 backdrop-blur-xl px-8 py-3 rounded-full border border-line shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
         {[
-          { key: "platform", label: t.nav.platform },
           { key: "modules", label: t.nav.modules },
-          { key: "ecosystem", label: t.nav.ecosystem },
-          { key: "enterprise", label: t.nav.enterprise }
+          { key: "roles", label: t.nav.roles },
+          { key: "benefits", label: t.nav.benefits }
         ].map((item) => (
           <a key={item.key} href={`#${item.key}`} className="text-[11px] font-bold uppercase tracking-widest text-brand/60 hover:text-accent transition-colors relative group">
             {item.label}
@@ -765,7 +764,7 @@ const ModuleVisual = ({ type, t }: { type: number, t: any }) => {
 };
 
 const UserRoles = ({ t }: { t: any }) => (
-  <section className="section-padding bg-paper relative overflow-hidden">
+  <section className="section-padding bg-paper relative overflow-hidden" id="roles">
     <div className="grid-line-v left-1/3 opacity-30" />
     <div className="grid-line-v left-2/3 opacity-30" />
     
@@ -945,7 +944,7 @@ const ProductVisuals = ({ t }: { t: any }) => (
 );
 
 const Benefits = ({ t }: { t: any }) => (
-  <section className="section-padding bg-paper">
+  <section className="section-padding bg-paper" id="benefits">
     <div className="container-custom">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-start">
         <div>

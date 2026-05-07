@@ -2,10 +2,9 @@
 export const translations = {
   en: {
     nav: {
-      platform: "Platform",
       modules: "Modules",
-      ecosystem: "Ecosystem",
-      enterprise: "Enterprise",
+      roles: "Roles",
+      benefits: "Benefits",
       login: "Log In",
       bookDemo: "Book a Demo"
     },
@@ -252,10 +251,9 @@ export const translations = {
   },
   am: {
     nav: {
-      platform: "Հարթակ",
       modules: "Մոդուլներ",
-      ecosystem: "Էկոհամակարգ",
-      enterprise: "Ձեռնարկություն",
+      roles: "Դերեր",
+      benefits: "Առավելություններ",
       login: "Մուտք",
       bookDemo: "Ամրագրել դեմո"
     },
