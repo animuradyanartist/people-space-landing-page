@@ -93,12 +93,15 @@ export const translations = {
       role1: "Organizations",
       role1Desc: "Establish consistent, scalable people processes and a unified digital HR environment.",
       role1Actions: ["Unified employee experience across the company", "Scalable people management processes", "Stronger collaboration and workplace culture", "Consistent HR operations at every level"],
-      role2: "Managers",
-      role2Desc: "Plan, lead, evaluate, and develop teams through clear processes and accessible tools.",
-      role2Actions: ["Focus on people and performance, not admin", "Clear processes for evaluation and development", "Real-time team visibility and planning", "Accessible tools for everyday leadership"],
+      role2: "HR",
+      role2Desc: "Run people operations end-to-end with structured data, automated workflows, and full visibility.",
+      role2Actions: ["Centralized employee data and records", "Automated approvals and HR workflows", "Compliance and audit-ready reporting", "Less admin work, more strategic impact"],
       role3: "Employees",
       role3Desc: "Interact with HR processes, communication, and feedback in a simple and transparent way.",
-      role3Actions: ["Feel informed, supported, and connected", "Simple access to HR processes and requests", "Transparent communication and feedback", "Self-service throughout the work experience"]
+      role3Actions: ["Feel informed, supported, and connected", "Simple access to HR processes and requests", "Transparent communication and feedback", "Self-service throughout the work experience"],
+      role4: "Managers",
+      role4Desc: "Plan, lead, evaluate, and develop teams through clear processes and accessible tools.",
+      role4Actions: ["Focus on people and performance, not admin", "Clear processes for evaluation and development", "Real-time team visibility and planning", "Accessible tools for everyday leadership"]
     },
     visuals: {
       microLabel: "Operational Clarity",
@@ -340,12 +343,15 @@ export const translations = {
       role1: "Կազմակերպություններ",
       role1Desc: "Հստակեք հետևողական, մաշտաբավորվոխ մարդկանց գործընթացներ և միասնական թվային HR միջավայր:",
       role1Actions: ["Միասնական աշխատակցական փորձառություն ընկերությունում", "Մաշտաբավորվոխ մարդկանց կառավարման գործընթացներ", "Համագործակցություն և աշխատավայրի մշակույթ", "Հետևողական HR գործառույթներ յուրաքանչյուր մակարդակում"],
-      role2: "Մենեջերներ",
-      role2Desc: "Պլանավորեք, առաջնորդեք, գնահատեք և զարգացրեք թիմերը հստակ գործընթացներով և հասանելի գործիքներով:",
-      role2Actions: ["Կենտրոնացեք մարդկանց և արդյունավետության վրա, ոչ վարչականի", "Գնահատման և զարգացման հստակ գործընթացներ", "Իրական ժամանակի թիմի տեսանելիություն և պլանավորում", "Հասանելի գործիքներ ամենօրյա ղեկավարությամբ"],
+      role2: "HR",
+      role2Desc: "Կառավարեք մարդկային ռեսուրսների գործառույթները կառուցվածքային տվյալներով, ավտոմատացված աշխատանքային հոսքերով և լիարժեք տեսանելիությամբ։",
+      role2Actions: ["Կենտրոնացված աշխատակիցների տվյալներ և գրառումներ", "Ավտոմատացված հաստատումներ և HR աշխատանքային հոսքեր", "Համապատասխանության և աուդիտի հաշվետվություններ", "Պակաս վարչական աշխատանք, ավելի շատ ռազմավարական ազդեցություն"],
       role3: "Աշխատակիցներ",
       role3Desc: "HR գործընթացներով, հաղորդակցությամբ և հետադարձ կապով պարզ և թափանցիկ ձևով:",
-      role3Actions: ["Զգալ տեղեկացված, աջակված և կապված", "Պարզ մուտք HR գործընթացներին և հարցումներին", "Թափանցիկ հաղորդակցություն և հետադարձ կապ", "Ինքնասպասարկում աշխատանքային փորձառության ընթացքում"]
+      role3Actions: ["Զգալ տեղեկացված, աջակված և կապված", "Պարզ մուտք HR գործընթացներին և հարցումներին", "Թափանցիկ հաղորդակցություն և հետադարձ կապ", "Ինքնասպասարկում աշխատանքային փորձառության ընթացքում"],
+      role4: "Մենեջերներ",
+      role4Desc: "Պլանավորեք, առաջնորդեք, գնահատեք և զարգացրեք թիմերը հստակ գործընթացներով և հասանելի գործիքներով:",
+      role4Actions: ["Կենտրոնացեք մարդկանց և արդյունավետության վրա, ոչ վարչականի", "Գնահատման և զարգացման հստակ գործընթացներ", "Իրական ժամանակի թիմի տեսանելիություն և պլանավորում", "Հասանելի գործիքներ ամենօրյա ղեկավարությամբ"]
     },
     visuals: {
       microLabel: "Գործառնական հստակություն",

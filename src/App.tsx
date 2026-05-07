@@ -794,7 +794,7 @@ const UserRoles = ({ t }: { t: any }) => (
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-0 border border-line">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0 border border-line">
         {[
           {
             role: t.roles.role1,
@@ -804,7 +804,7 @@ const UserRoles = ({ t }: { t: any }) => (
           },
           {
             role: t.roles.role2,
-            icon: <Users className="w-6 h-6" />,
+            icon: <ShieldCheck className="w-6 h-6" />,
             desc: t.roles.role2Desc,
             actions: t.roles.role2Actions
           },
@@ -813,15 +813,21 @@ const UserRoles = ({ t }: { t: any }) => (
             icon: <UserCircle className="w-6 h-6" />,
             desc: t.roles.role3Desc,
             actions: t.roles.role3Actions
+          },
+          {
+            role: t.roles.role4,
+            icon: <Users className="w-6 h-6" />,
+            desc: t.roles.role4Desc,
+            actions: t.roles.role4Actions
           }
         ].map((item, i) => (
-          <motion.div 
+          <motion.div
             key={i}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="group relative p-16 border-r last:border-r-0 border-line hover:bg-white transition-all duration-500"
+            className="group relative p-12 border-r last:border-r-0 border-b lg:border-b-0 last:border-b-0 border-line hover:bg-white transition-all duration-500"
           >
             <div className="text-7xl font-bold text-brand/5 mb-12 group-hover:text-accent/10 transition-colors font-serif italic">0{i + 1}</div>
             <div className="w-12 h-12 rounded-full bg-brand flex items-center justify-center text-white mb-10 group-hover:bg-accent group-hover:text-brand transition-colors duration-500">
