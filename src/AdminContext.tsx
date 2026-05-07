@@ -134,8 +134,11 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => { overridesRef.current = overrides; }, [overrides]);
   useEffect(() => { brandingRef.current = branding; }, [branding]);
 
-  // Fetch server data on mount (for ALL visitors). Always sync from server —
-  // even if empty — so resets on another device propagate here.
+  // Fetch server data on mount (for ALL visitors). The server is the source of
+  // truth, BUT: if the server returns truly empty data while we have local
+  // overrides cached, we keep the local cache. This prevents a misconfigured
+  // server (e.g. missing ADMIN_PASSWORD causing silent save failures) from
+  // wiping out edits that the admin believes are saved.
   useEffect(() => {
     const fetchServerData = async () => {
       try {
@@ -144,12 +147,22 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
         const data = await res.json();
         const nextOverrides = data.overrides ?? {};
         const nextBranding = data.branding ?? {};
-        setOverrides(nextOverrides);
-        setBranding(nextBranding);
-        localStorage.setItem('ps_content_overrides', JSON.stringify(nextOverrides));
-        localStorage.setItem('ps_branding', JSON.stringify(nextBranding));
+
+        const serverHasOverrides = Object.keys(nextOverrides).length > 0;
+        const serverHasBranding = Object.keys(nextBranding).length > 0;
+        const localHasOverrides = Object.keys(overridesRef.current).length > 0;
+        const localHasBranding = Object.keys(brandingRef.current).length > 0;
+
+        if (serverHasOverrides || !localHasOverrides) {
+          setOverrides(nextOverrides);
+          localStorage.setItem('ps_content_overrides', JSON.stringify(nextOverrides));
+        }
+        if (serverHasBranding || !localHasBranding) {
+          setBranding(nextBranding);
+          localStorage.setItem('ps_branding', JSON.stringify(nextBranding));
+        }
       } catch {
-        // Server unavailable — use localStorage cache (already loaded)
+        // Server unavailable — keep localStorage cache
       }
     };
     fetchServerData();

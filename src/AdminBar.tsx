@@ -154,6 +154,7 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
   const [localValues, setLocalValues]     = useState<Record<string, any>>({});
   const [saved, setSaved]                 = useState(false);
   const [serverSaved, setServerSaved]     = useState(false);
+  const [saveFailed, setSaveFailed]       = useState(false);
 
   const langOverrides = overrides[lang] ?? {};
 
@@ -174,6 +175,7 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
       }
     }
     setSaved(true);
+    setSaveFailed(false);
     // Wait for React to flush state updates, then sync to server
     // (saveToServer reads latest state via refs — no stale closures).
     await new Promise(r => requestAnimationFrame(() => r(null)));
@@ -181,9 +183,12 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
     const ok = await saveToServer();
     if (ok) {
       setServerSaved(true);
-      setTimeout(() => setServerSaved(false), 2000);
+      setTimeout(() => setServerSaved(false), 3000);
+    } else {
+      setSaveFailed(true);
+      setTimeout(() => setSaveFailed(false), 5000);
     }
-    setTimeout(() => setSaved(false), 2000);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   const handleReset = async () => {
@@ -370,7 +375,7 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
                         {SECTIONS.find(s => s.key === activeSection)?.label}
                       </h3>
                       <p className="text-[10px] text-gray-400 mt-0.5">
-                        Editing <span className="font-bold">{lang.toUpperCase()}</span> · {syncError ? <span className="text-red-500">{syncError}</span> : serverSaved ? <span className="text-green-600">synced to server</span> : 'synced across devices'}
+                        Editing <span className="font-bold">{lang.toUpperCase()}</span> · {syncError ? <span className="text-red-500 font-bold">⚠ {syncError} — edits won't persist across deploys</span> : serverSaved ? <span className="text-green-600 font-bold">✓ saved to server</span> : 'auto-syncs to server'}
                       </p>
                     </div>
                   </div>
@@ -381,18 +386,27 @@ export const AdminBar = ({ lang }: { lang: Lang }) => {
                       .filter(Boolean)}
                   </div>
 
-                  <div className="p-4 border-t border-gray-100">
+                  <div className="p-4 border-t border-gray-100 space-y-2">
                     <button
                       onClick={handleSave}
                       className={`w-full py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${
-                        saved
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-[#4CAF50] text-white hover:bg-[#3d9943] active:scale-[0.98]'
+                        saveFailed
+                          ? 'bg-red-100 text-red-700'
+                          : serverSaved
+                            ? 'bg-green-100 text-green-700'
+                            : saved
+                              ? 'bg-yellow-100 text-yellow-700'
+                              : 'bg-[#4CAF50] text-white hover:bg-[#3d9943] active:scale-[0.98]'
                       }`}
                     >
-                      {saved ? <Check className="w-4 h-4" /> : isSyncing ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                      {saved ? 'Saved!' : isSyncing ? 'Syncing...' : 'Save Changes'}
+                      {saveFailed ? <X className="w-4 h-4" /> : serverSaved ? <Check className="w-4 h-4" /> : isSyncing ? <RefreshCw className="w-4 h-4 animate-spin" /> : saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+                      {saveFailed ? 'Server save failed — local only' : serverSaved ? 'Saved to server!' : isSyncing ? 'Syncing to server...' : saved ? 'Saved locally — syncing...' : 'Save Changes'}
                     </button>
+                    {saveFailed && (
+                      <p className="text-[11px] text-red-600 leading-snug">
+                        Edits stay on this browser only. Set <code className="bg-red-50 px-1 rounded">ADMIN_PASSWORD</code> in Netlify environment variables so saves persist across deploys.
+                      </p>
+                    )}
                   </div>
                 </>
               ) : (
