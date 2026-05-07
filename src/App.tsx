@@ -27,7 +27,6 @@ import {
   ChevronRight,
   UserCircle,
   AlertCircle,
-  Languages,
   Building2,
   Mail,
   X,
@@ -96,17 +95,6 @@ const Navbar = ({ t, lang, setLang, onStartTrial }: { t: any, lang: string, setL
       </div>
       
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xl px-3 py-2 rounded-full border border-line shadow-sm">
-          <Languages className="w-4 h-4 text-brand/40" />
-          <select 
-            value={lang} 
-            onChange={(e) => setLang(e.target.value)}
-            className="bg-transparent text-[10px] font-bold uppercase tracking-widest text-brand outline-none cursor-pointer hover:text-accent transition-colors"
-          >
-            <option value="en">EN</option>
-            <option value="am">AM</option>
-          </select>
-        </div>
         <button
           onClick={onStartTrial}
           className="group relative text-xs px-5 py-2.5 md:px-8 md:py-3 md:text-sm bg-brand text-white overflow-hidden rounded-full transition-all duration-500 hover:shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
