@@ -1495,8 +1495,6 @@ function AppInner() {
         <Benefits t={t} />
       </main>
 
-      <Footer t={t} onStartTrial={() => setIsRegistrationOpen(true)} />
-
       <AnimatePresence>
         {isRegistrationOpen && (
           <RegistrationModal
